@@ -1,1 +1,49 @@
+TERRAFORM 
+
+[ TOP LEVEL BLOCKS ]
+
+TERRAFORM SETTING BLOCK
+(Used this TF Version and download the specified Provider and plugins indicated.)
+- Required Version
+- Required Provider
+
+PROVIDER BLOCK
+(Go and connect with AWS with these credentials in said - Region)
+- Provider Name
+- Region
+- Profile
+
+TERRAFORM STATE BASICS
+# terraform apply
+- After infractructure is provisioned...
+- The Terraform State File is created in your local working dir: “terraform.tfstate”.
+            * It’s the underlying database and is critical to your entire TF infrastructure.
+            * It’s a map that contains all the infrastructure info.
+
+DESIRED STATE:
+- Is nothing but your TF Configuration files: versions.tf, ec2-instance.tf, etc.
+
+CURRENT STATE:
+- Real world Resource created by TF…  like EC2 instances
+
+WHAT IS TERRAFORM LOCK?
+SHORT: 
+It’s to prevent all other operations from writing state. 
+
+LONG:
+If supported by your backend, Terraform will lock your state for all operations that could write state. 
+This prevents others from acquiring the lock and potentially corrupting your state. State locking happens automatically 
+on all operations that could write state. You won't see any message that it is happening.
+
+lock.hcl
+was introduced in Terraform 0.14. It's designed to record the exact package versions used to satisfy each provider requirement in your configuration. 
+This ensures that every member of your team and your deployment systems use the same provider versions, avoiding inconsistencies and potential bugs.
+
+TERRAFORM STATE REMOTE BASICS
+- Remote State Storage
+* S3 / DynamoDB
+
+
+
+
 
