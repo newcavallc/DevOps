@@ -1,22 +1,42 @@
 TERRAFORM 
 
-[ TOP LEVEL BLOCKS ]
+[ TYPE OF BLOCKS IN TERRAFORM ]
 
 TERRAFORM SETTING BLOCK
-(Used this TF Version and download the specified Provider and plugins indicated.)
+Carries the required version and provider.
 - Required Version
 - Required Provider
 
 PROVIDER BLOCK
+Indicates the provider plugins. Which states how terraform will interface with the cloud environment.
 (Go and connect with AWS with these credentials in said - Region)
 - Provider Name
 - Region
 - Profile
 
+DATA BLOCK
+Is used to retrieve or query data from a data resource which can be used in the TF configuration. 
+
+RESOURCE BLOCK
+Defines and configures: EC2, Network, Database, representing the desired state of the resource. 
+
+MODULE BLOCK
+A series .tf files is considered a module. 
+
+VARIABLE BLOCK
+Is used to define input variables that allow you to parameterize and customize your infrastructure configurations.
+
+OUTPUT BLOCK
+Values that can be exposed after infrastructure provisioning and used for reference.
+It’s a feature used to display and extract values from your infrastructure.
+
+LOCAL BLOCK
+Is like writing a personal note for yourself in your code to make it easier to understand and manage.
+
 TERRAFORM STATE BASICS
 # terraform apply
 - After infractructure is provisioned...
-- The Terraform State File is created in your local working dir: “terraform.tfstate”.
+- The Terraform State File is created in your local working dir: “terraform.tfstate” or remote s3 bucket if defined.
             * It’s the underlying database and is critical to your entire TF infrastructure.
             * It’s a map that contains all the infrastructure info.
 
@@ -39,9 +59,7 @@ lock.hcl
 was introduced in Terraform 0.14. It's designed to record the exact package versions used to satisfy each provider requirement in your configuration. 
 This ensures that every member of your team and your deployment systems use the same provider versions, avoiding inconsistencies and potential bugs.
 
-TERRAFORM STATE REMOTE BASICS
-- Remote State Storage
-* S3 / DynamoDB
+
 
 
 
