@@ -1,9 +1,10 @@
 
 
-
+-- INSTALL HELM --
 Step 1: Install Helm
 Helm Install Guide:   https://helm.sh/docs/intro/install/
 
+-- HELM REPO --
 Step 2: Add Prometheus Helm Repository
 # helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 # helm repo update
@@ -12,6 +13,7 @@ COMMAND BREAK DOWN
 * helm repo add         ///    Adds the Prometheus community repository to Helm.
 * helm repo update     ///     Updates the local Helm repository cache.
 
+-- INSTALL PROMETHEUS --
 Step 3: Install Prometheus with Helm
 Save the values in a "values.yaml" file to customize the installation.
 
@@ -47,7 +49,7 @@ Check the installation status and ensure that Prometheus pods are running:
 You should see Prometheus pods running. If the status is "Running," the installation was successful.
 
 Step 5: Access Prometheus WEB UI
-Use prometheus.example.com, open your browser and navigate to http://prometheus.example.com/.
+Open your browser and navigate to http://prometheus.example.com/.
 REMEMBER: We specified this domain earlier in our values.yaml file. 
 
 CONGRATS!!!
@@ -55,8 +57,57 @@ We installed Prometheus in your Kubernetes cluster using Helm and customized the
 You can further configure and integrate Prometheus as needed for your monitoring requirements.
 
 
+-- LET'S CONFIGURE PROMETHEUS SERVER W/ SCRAPE TARGETS --
+STEP 1: Create/Edit the values-custom.yaml file and specify the scrape target(s) for Prometheus.
 
+i,e.
+# custom-values.yaml
+server:
+  additionalScrapeConfigs:
+    - job_name: 'my-new-service'
+      kubernetes_sd_configs:
+        - role: endpoints
+      relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_container_port_name]
+          action: keep
+          regex: "http"
 
+In this example:
+Here, we added a new scrape target named 'my-new-service', the line: 'kubernetes_sd_configs:' indicates that we will 
+use 'Kubernetes service discovery' to scrape pods with containers exposing an HTTP endpoint. 
+This configuration is specific to the Helm chart installation.
+
+- So how does the Prometheus server know where to find the pods?
+
+<> Kubernetes Service Discovery: When Prometheus starts, it queries the Kubernetes API server for 
+                                 the list of pods that match the criteria specified in the service discovery configuration. 
+                                 This criteria often includes Kubernetes labels and annotations.
+
+<> Dynamic Target Discovery: Prometheus dynamically discovers the pods that match the criteria and adds them as scrape targets. 
+                             This process is automated and does not require manual intervention to update scrape targets.
+
+<> Scraping: Prometheus regularly scrapes metrics from the discovered pods according to the scrape interval defined in the configuration.
+
+Step 2: Upgrade Prometheus
+To apply changes, we use 'helm upgrade' command with the release name and the path to the Helm chart:
+
+# helm upgrade prometheus -n prometheus -f custom-values.yaml prometheus-community/prometheus
+
+COMMAND BREAK DOWN
+* 'prometheus'                       ///         is the release name.
+* '-n prometheus'                   ///          specifies the namespace.
+* '-f custom-values.yaml'           ///          specifies custom values file that includes the updated scrape target configuration.
+* 'prometheus-community/prometheus' ///          is the Helm chart.
+
+This command will upgrade the Prometheus deployment with the new configuration, including the updated scrape targets.
+
+Step 3: Verify Changes
+Verify changes by checking Prometheus pods to ensure they're running/collecting 
+data from the updated scrape targets:
+
+# kubectl get pods -n prometheus
+Your Prometheus pods should show that they are running and ready. 
+The changes to the scrape targets will take effect after the upgrade.
 
 
 
