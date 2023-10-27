@@ -1,0 +1,77 @@
+
+
+
+Step 1: Install Helm
+Helm Install Guide:   https://helm.sh/docs/intro/install/
+
+Step 2: Add Prometheus Helm Repository
+# helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+# helm repo update
+
+COMMAND BREAK DOWN
+* helm repo add         ///    Adds the Prometheus community repository to Helm.
+* helm repo update     ///     Updates the local Helm repository cache.
+
+Step 3: Install Prometheus with Helm
+Save the values in a "values.yaml" file to customize the installation.
+
+# values.yaml
+
+server:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: "nginx"  # Modify if you use a different ingress controller
+    hosts:
+      - prometheus.example.com  # Replace with your domain
+    pathType: Prefix
+    path: /
+
+-- we configure Prometheus to be accessible via an Ingress with a custom domain. 
+   Adjust the hosts value to your domain.
+
+Run the Helm installation command:
+# helm install prometheus -n prometheus -f values.yaml prometheus-community/prometheus
+
+COMMAND BREAK DOWN
+* "helm install"          ///   Installs" the Prometheus Helm chart.
+* "prometheus"            ///   Is the release name for this installation.
+* "-n prometheus"         ///   Specifies namespace where Prometheus will be installed. ENSURE THAT NAMESPACE EXIST.
+* "-f values.yaml"        ///   Specifies the values file to customize the installation.
+* "prometheus-community/prometheus"    ///   Is the Helm chart to install.
+
+Step 4: Verify Installation
+Check the installation status and ensure that Prometheus pods are running:
+
+# kubectl get pods -n prometheus
+You should see Prometheus pods running. If the status is "Running," the installation was successful.
+
+Step 5: Access Prometheus WEB UI
+Use prometheus.example.com, open your browser and navigate to http://prometheus.example.com/.
+REMEMBER: We specified this domain earlier in our values.yaml file. 
+
+CONGRATS!!!
+We installed Prometheus in your Kubernetes cluster using Helm and customized the installation with specific configuration values. 
+You can further configure and integrate Prometheus as needed for your monitoring requirements.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
