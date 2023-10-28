@@ -170,9 +170,145 @@ public class Main {
 }
 
 
+-- WHAT THIS LOOKS LIKE FOR KUBERNETES DEPLOYMENT --
+
+Remember: We've already exposed the metric in Step 1: 
+Step 2: Create Kubernetes Deployment and Service.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: your-java-app-image:tag
+          ports:
+            - containerPort: 8080  # Expose the port your application is running on
+
+
+---
+
+NOTE: The 'Service' facilitates network communication to and from the POD. 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80  # Exposed port
+      targetPort: 8080  # Match the container port
 
 
 
+< DEPLOYMENT BREAK DOWN >
 
+apiVersion: apps/v1: 
+This line specifies the API version for the Kubernetes object being created. 
+In this case, it's using the apps/v1 API version, which is commonly used for Deployments.
+
+kind: Deployment: 
+This line specifies that you are creating a Deployment object. 
+A Deployment is a Kubernetes resource that defines a declarative way to manage applications.
+
+metadata:: 
+This section contains metadata about the Deployment, such as its name and labels.
+
+name: my-app: 
+This line specifies the name of the Deployment. In this example, it's named "my-app."
+
+labels:: 
+Labels are key-value pairs that can be attached to Kubernetes resources. 
+Here, a label with the key "app" is set to the value "my-app." This label can be used for grouping and selecting resources.
+
+spec:: 
+The spec section defines the desired state of the Deployment.
+
+replicas: 3: 
+This line specifies that you want three replicas (copies) of your application pods 
+to be running at all times. If a pod goes down, the Deployment will ensure that it's replaced.
+
+template:: 
+Inside the template section, you define the Pod template for the Deployment. 
+This template is used to create individual pods that are part of the Deployment.
+
+metadata:: 
+Similar to the outer metadata section, this metadata section contains labels for the pods 
+created from the template.
+
+labels:: 
+These labels are associated with the pods created from the template. 
+In this case, the pods will also have the label "app: my-app."
+
+spec:: 
+Inside the template's spec section, you specify the configuration for the containers running in the pods.
+
+containers:: 
+This is a list of containers running in the pod. In this example, there's only one container named "my-app."
+
+name: my-app: 
+This line specifies the name of the container, which is set to "my-app."
+
+image: 
+your-java-app-image:tag: Here, you specify the Docker image for the container. 
+Replace "your-java-app-image:tag" with the actual image name and tag for your Java application.
+
+ports:: 
+This section defines the ports that the container exposes.
+
+- containerPort: 8080: It specifies that the container is listening on port 8080. 
+This port is where your Java application inside the container is running and exposing its service.
+
+
+
+< SERVICE BREAK DOWN >
+
+apiVersion: v1: 
+Specifies the API version for the Kubernetes Service.
+
+kind: 
+Service: Indicates that you are creating a Service resource in Kubernetes.
+
+metadata:: 
+This section contains metadata about the Service, such as its name.
+
+name: my-app: 
+Specifies the name of the Service, which is set to "my-app."
+
+spec:: 
+Defines the specifications for the Service.
+
+selector:: 
+This section defines a set of labels used to select the pods that the Service will route traffic to.
+
+app: my-app: 
+The selector specifies that the Service will route traffic to pods with the label "app: my-app," 
+matching the labels of the pods created by the Deployment.
+
+ports:: 
+This section specifies the ports that the Service will listen on.
+
+- protocol: TCP: Indicates that the Service is using the TCP protocol.
+
+port: 80: 
+Specifies the port on which the Service will listen. This is the port through which external 
+clients can access the Service.
+
+targetPort: 8080: 
+Specifies the target port to which traffic will be routed within the pods. 
+This matches the container port of the pods created by the Deployment. In this case, it routes 
+traffic to port 8080 within the pods.
 
 
