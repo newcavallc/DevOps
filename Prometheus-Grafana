@@ -62,28 +62,117 @@ STEP 1: Create/Edit the values-custom.yaml file and specify the scrape target(s)
 
 i,e.
 # custom-values.yaml
-server:
-  additionalScrapeConfigs:
-    - job_name: 'my-new-service'
-      kubernetes_sd_configs:
-        - role: endpoints
-      namespaces:
-          names: [default]  # Limit to specific namespaces
-      relabel_configs:
-        - source_labels: [__meta_kubernetes_pod_container_port_name]
-          action: keep
-          regex: "http"
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'my-app'
+    kubernetes_sd_configs:
+      - role: endpoints
+    relabel_configs:
+      - source_labels: [app]         
+        action: keep                       
+        regex: my-app                      
+      - source_labels: [container_port] <---      We use yet another sourcel label for same job... Therefore we narrow down 
+                                                  the selection of pods for scraping even further. 
+        action: keep
+        regex: "8080"
+
+NOTICE ABOVE...
+- source_labels: [app]                ///       Therefore if your Deployment App indicates the following:
+                                                labels:
+                                                  app: my-app  # Applying the "app" label to the pod template
+
+                                                Prometheus will filter pods to monitor based on the "[app]" lable and "my-app" value.
+                                                Prometheus will only scrape metrics from pods that match this label criteria.
+
+< CONFIG BREAK DOWN >
+
+GLOBAL SECTION:
+
+global:: 
+This section contains global settings for Prometheus.
+
+scrape_interval: 15s: 
+This line sets the global scrape interval, which is the frequency at which Prometheus scrapes metrics from its targets. 
+In this case, it's set to every 15 seconds.
+
+Scrape Configurations Section:
+
+scrape_configs:: 
+This section defines the scrape configurations, which specify the targets and settings for scraping metrics.
+
+Job for Prometheus:
+
+job_name: 'prometheus': 
+This is a scrape configuration named 'prometheus.' It's used for scraping metrics from the Prometheus server itself.
+
+static_configs:: 
+Specifies static (fixed) scrape targets.
+
+targets: ['localhost:9090']: 
+This line specifies that Prometheus should scrape metrics from 'localhost' on port 9090, 
+which is how Prometheus collects its own metrics.
+
+Job for Your Application ('my-app'):
+
+job_name: 'my-app': This is a scrape configuration named 'my-app,' representing your application's metrics.
+
+kubernetes_sd_configs:: 
+This section configures Kubernetes service discovery for finding scrape targets.
+
+role: endpoints: 
+Specifies the role for Kubernetes service discovery, focusing on endpoints (pods).
+
+relabel_configs:: 
+Defines relabeling configurations to filter or modify discovered targets.
+
+source_labels: [app]: 
+Source label for filtering.
+
+action: keep: 
+The action specifies to keep the target if conditions are met.
+
+regex: my-app: 
+Specifies the regex pattern. This line filters pods with the 'app' label set to 'my-app.'
+Another relabeling rule filters pods with the 'container_port' label set to "8080."
 
 
+PROMETHEUS SCRAPES ITSELF: 
 
-* 'kubernetes_sd_configs'    ///  specifies that Prometheus should use Kubernetes service discovery.
-* 'role: endpoints'          ///  tells Prometheus to discover endpoints (pods).
-* 'namespaces'               ///  allows you to limit the discovery to specific namespaces.
-* 'relabel_configs'          ///  filter the discovered endpoints based on their labels. In this example, it selects pods with the app label set to my-app.
-* 'action: keep'            ///   Specifies that you want to keep the scrape target if the conditions are met. 
-                                  Other actions can include drop (discard the target) or replace (modify the target).
-* 'regex: "http"            ///   "http": This is a regular expression that checks the value of the __meta_kubernetes_pod_container_port_name label.
-                                  It will keep the target only if the value matches "http." 
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+
+IT ALSO SCRAPE FOR:
+
+Prometheus Uptime: 
+Information about how long the Prometheus server has been running.
+
+Resource Usage: 
+Metrics related to CPU and memory usage by the Prometheus process.
+
+Scrape and Alerting Information: 
+Metrics related to the success and latency of scraping other targets 
+(including your application) and alerting rule evaluations.
+
+TSDB (Time-Series Database) Metrics: 
+Data about the storage and management of time-series data, including information on 
+disk space usage, retention policies, and more.
+
+HTTP Request Statistics: 
+Metrics related to HTTP requests to the Prometheus server, such as request counts, 
+response times, and error rates.
+
+Prometheus Configuration: 
+Information about the configuration of Prometheus, including scrape targets and 
+alerting rules.
 
 
 - So how does the Prometheus server know where to find the pods?
@@ -180,7 +269,7 @@ kind: Deployment
 metadata:
   name: my-app
   labels:
-    app: my-app
+    app: my-app          <---- Prometheus will filter based on the "app:" label
 spec:
   replicas: 3
   template:
