@@ -77,8 +77,13 @@ Here, we added a new scrape target named 'my-new-service', the line: 'kubernetes
 use 'Kubernetes service discovery' to scrape pods with containers exposing an HTTP endpoint. 
 This configuration is specific to the Helm chart installation.
 
-- So how does the Prometheus server know where to find the pods?
 
+
+
+
+
+
+- So how does the Prometheus server know where to find the pods?
 <> Kubernetes Service Discovery: When Prometheus starts, it queries the Kubernetes API server for 
                                  the list of pods that match the criteria specified in the service discovery configuration. 
                                  This criteria often includes Kubernetes labels and annotations.
@@ -87,6 +92,12 @@ This configuration is specific to the Helm chart installation.
                              This process is automated and does not require manual intervention to update scrape targets.
 
 <> Scraping: Prometheus regularly scrapes metrics from the discovered pods according to the scrape interval defined in the configuration.
+
+
+
+
+
+
 
 Step 2: Upgrade Prometheus
 To apply changes, we use 'helm upgrade' command with the release name and the path to the Helm chart:
