@@ -67,20 +67,23 @@ server:
     - job_name: 'my-new-service'
       kubernetes_sd_configs:
         - role: endpoints
+      namespaces:
+          names: [default]  # Limit to specific namespaces
       relabel_configs:
         - source_labels: [__meta_kubernetes_pod_container_port_name]
           action: keep
           regex: "http"
 
-In this example:
-Here, we added a new scrape target named 'my-new-service', the line: 'kubernetes_sd_configs:' indicates that we will 
-use 'Kubernetes service discovery' to scrape pods with containers exposing an HTTP endpoint. 
-This configuration is specific to the Helm chart installation.
 
 
-
-
-
+* 'kubernetes_sd_configs'    ///  specifies that Prometheus should use Kubernetes service discovery.
+* 'role: endpoints'          ///  tells Prometheus to discover endpoints (pods).
+* 'namespaces'               ///  allows you to limit the discovery to specific namespaces.
+* 'relabel_configs'          ///  filter the discovered endpoints based on their labels. In this example, it selects pods with the app label set to my-app.
+* 'action: keep'            ///   Specifies that you want to keep the scrape target if the conditions are met. 
+                                  Other actions can include drop (discard the target) or replace (modify the target).
+* 'regex: "http"            ///   "http": This is a regular expression that checks the value of the __meta_kubernetes_pod_container_port_name label.
+                                  It will keep the target only if the value matches "http." 
 
 
 - So how does the Prometheus server know where to find the pods?
@@ -92,9 +95,6 @@ This configuration is specific to the Helm chart installation.
                              This process is automated and does not require manual intervention to update scrape targets.
 
 <> Scraping: Prometheus regularly scrapes metrics from the discovered pods according to the scrape interval defined in the configuration.
-
-
-
 
 
 
@@ -121,14 +121,53 @@ Your Prometheus pods should show that they are running and ready.
 The changes to the scrape targets will take effect after the upgrade.
 
 
+-- Let's Arm the Application --
 
 
+STEP 1: Update pom.xml: Add Prometheus Java client library as a dependency. 
+        Here's an example of how to do it:
+
+<dependencies>
+    <!-- Other dependencies -->
+    <dependency>
+        <groupId>io.prometheus</groupId>
+        <artifactId>simpleclient</artifactId>
+        <version>0.12.0</version>
+    </dependency>
+    <dependency>
+        <groupId>io.prometheus</groupId>
+        <artifactId>simpleclient_hotspot</artifactId>
+        <version>0.12.0</version>
+    </dependency>
+    <!-- Additional Prometheus client libraries as needed -->
+</dependencies>
+
+This i.e, includes two common Prometheus client libraries for Java:
+      - simpleclient 
+      - Simpleclient_hotspot
+        NOTE: You may need other libraries depending on your specific use case.
 
 
+STEP 2: Instrument Code: 
+You kneed to instrument your Java code to expose metrics using the following libraries. 
 
+import io.prometheus.client.Counter;                <-------
+import io.prometheus.client.exporter.HTTPServer;     <-------
 
+public class Main {
+    public static void main(String[] args) throws Exception {
+        HTTPServer server = new HTTPServer(8080);
 
+        Counter requests = Counter.build()
+            .name("my_app_requests_total")
+            .help("Total HTTP requests handled")
+            .register();
 
+        requests.inc();
+
+        Thread.currentThread().join();
+    }
+}
 
 
 
