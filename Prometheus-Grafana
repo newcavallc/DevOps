@@ -593,7 +593,65 @@ You should now have Grafana accessible via an Ingress controller, allowing you t
 Grafana dashboard securely over the internet or your network using a custom domain or host.
 
 
+-- CREATE GRAFANA DASHBOARD --
 
+Step 1: Access the Grafana Dashboard
+
+Open a web browser and navigate to the Grafana web interface. The URL should be the one configured during Grafana installation, often http://<your-grafana-host>.
+Log in using your Grafana credentials.
+
+Step 2: Create a New Dashboard
+
+In the Grafana interface, 
+- click on the "Create" icon in the sidebar.
+- Click on Dashboard
+- Click on the "Add new panel" button            /// to start creating a panel for your application's metrics.
+
+Step 3: Define Data Source
+
+- Click on the panel title, then click "Edit."
+
+- In the panel settings, go to the "Query" section.
+
+- Choose the appropriate data source (e.g., Prometheus) from the drop-down menu.
+
+- Write a PromQL query to fetch the metrics related to your application on the specific port (e.g., HTTP). 
+  For example, you might use a query like:
+
+  http_requests_total{job="my-app", port="80"}
+  This query retrieves the total HTTP requests metric for a job named "my-app" running on port 80.
+
+Step 4: Configure Visualization
+
+- In the "Visualization" section of the panel settings, select the type of visualization that best represents your metric data (e.g., time series graph, singlestat, etc.).
+  Customize the visualization settings to suit your preferences, such as axes, labels, and colors.
+
+Step 5: Save and Name the Panel
+
+- After configuring the panel, click "Apply" to save your changes.
+  Give your panel a meaningful title that describes the metric you are monitoring, such as "HTTP Requests."
+
+Step 6: Create Additional Panels (Optional)
+
+- You can add multiple panels to the dashboard to monitor various aspects of your application, 
+  such as response times, error rates, or any other relevant metrics. Repeat the steps above for each panel.
+
+Step 7: Save the Dashboard
+
+- Click "Save" in the top right corner of the Grafana interface.
+- Enter a name for your dashboard and choose the folder where you want to save it.
+- Optionally, provide a description for the dashboard.
+
+Step 8: Access and Share the Dashboard
+
+- You can now access your dashboard at any time by navigating to the "Home" menu in Grafana 
+  and selecting the folder where you saved the dashboard.
+
+ - You can also share your dashboard with others by generating a shareable link or by exporting 
+   it as a JSON file that can be imported into other Grafana instances.
+
+By following these steps, you can create a Grafana dashboard that monitors an application on a 
+specific port, allowing you to visualize and analyze its metrics.
 
 
 
