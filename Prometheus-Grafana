@@ -460,4 +460,144 @@ Specifies the target port to which traffic will be routed within the pods.
 This matches the container port of the pods created by the Deployment. In this case, it routes 
 traffic to port 8080 within the pods.
 
+-- I THINK WE'RE DONE FOR NOW --
+
+
+
+
+-- GRAFANA INSTALL PROCEDURES --
+
+Step 1: Prerequisites
+
+Before you begin, make sure you have the following prerequisites in place:
+
+A running Kubernetes cluster.
+Helm installed on your local machine and initialized on your cluster.
+Access to your cluster, including permissions to create and manage resources.
+
+Step 2: Add the Grafana Helm Repository
+
+Add the official Grafana Helm repository to Helm so that you can install Grafana from there. Run this command:
+# helm repo add grafana https://grafana.github.io/helm-charts
+
+Step 3: Update the Helm Repositories
+
+Update the Helm repositories to ensure you have the latest information about available charts:
+# helm repo update
+
+Step 4: Create a Values File (Optional)
+
+You can customize Grafana's configuration by creating a values.yaml file with your desired settings. For example:
+# values.yaml
+adminUser: your-admin-username
+adminPassword: your-admin-password
+
+Step 5: Install Grafana using Helm
+
+Use Helm to install Grafana with your custom values (if you created a values.yaml file) or with the default values:
+# helm install grafana grafana/grafana -f values.yaml
+
+Step 6: Verify the Installation
+
+Check if the Grafana installation was successful by running:
+# kubectl get pods
+
+You should see a Grafana pod in the output.
+
+Step 7: Access the Grafana Dashboard
+
+To access the Grafana dashboard, you'll typically need to create a service or an ingress resource. 
+Here's an example of how to expose Grafana using a ClusterIP service:
+
+# grafana-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+spec:
+  selector:
+    app.kubernetes.io/name: grafana
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+
+Apply this service definition:
+# kubectl apply -f grafana-service.yaml
+
+Step 8: Access the Grafana Web Interface
+
+Find the IP or hostname of your Grafana service or ingress, and access it in your web browser. 
+The default username and password are typically "admin" and "admin." You'll be prompted to change 
+the password upon the first login.
+
+That's it! You've successfully installed Grafana in your Kubernetes cluster using Helm and can now 
+use it to create dashboards and visualizations for your monitoring data.
+
+
+OPTION STEP...
+EXPOSE GRAFANA USING AN INGRES CONTROLLER.
+
+Step 1: Create an Ingress Resource
+
+Create an Ingress resource definition for Grafana. Save this configuration in a file, for example, grafana-ingress.yaml:
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: grafana.example.com  # Replace with your domain or host
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 80
+
+
+In this example, we use the NGINX Ingress Controller with the rewrite-target annotation. 
+Replace grafana.example.com with your actual domain or host.
+
+Step 2: Apply the Ingress Configuration
+
+Apply the Ingress resource configuration to your cluster:
+# kubectl apply -f grafana-ingress.yaml
+
+Step 3: Verify the Ingress
+
+Check the status of the Ingress to ensure it's running and has the desired configuration:
+# kubectl get ingress
+
+You should see the Grafana Ingress with your specified host and path.
+
+Step 4: DNS Configuration (if required)
+
+Make sure that the DNS for the host you specified (e.g., grafana.example.com) is correctly 
+configured to point to your cluster's Ingress controller IP or load balancer. 
+This step is crucial for external access.
+
+Step 5: Access Grafana
+
+Once the Ingress is configured and DNS is set up, you can access Grafana using your specified host or 
+domain in a web browser. For example, if you configured it as grafana.example.com, access Grafana 
+by going to http://grafana.example.com.
+
+You should now have Grafana accessible via an Ingress controller, allowing you to access the 
+Grafana dashboard securely over the internet or your network using a custom domain or host.
+
+
+
+
+
+
+
+
+
 
