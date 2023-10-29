@@ -29,6 +29,7 @@ Alert Manager:
   * Provides features for deduplication, silencing, grouping, and routing alerts to appropriate recipients.
 
 //////
+
 The Alert Manager can alert you by:
 Receiving Alerts: 
 It receives alerts from the Prometheus server.
@@ -39,11 +40,12 @@ The Alert Manager processes incoming alerts, groups related alerts, and deduplic
 Applying Notification Routing: 
 It applies notification routing rules to determine which receivers (e.g., email, chat, webhook) should receive alerts.
 
-Sending Notifications: It sends notifications to the configured receivers, such as 
-email, chat, or other communication channels.
+Sending Notifications: 
+It sends notifications to the configured receivers, such as email, chat, or other communication channels.
 
 In summary, the Alert Manager acts as a central component for processing and routing alerts generated 
 by Prometheus, ensuring that the right people or systems receive timely notifications about issues and incidents.
+
 \\\\\\
 
 Query Language and Web UI:
