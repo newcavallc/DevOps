@@ -38,7 +38,7 @@ management of Kubernetes clusters.
 -------------------------------------
 An AWS instance fleet is a diverse set of EC2 instances designed for specific use cases:
     * pricing models
-    * Amazon EMR
+    * Amazon EMR (Cloud-based big data platform) 
     * Application that require tailoring.
 
 
