@@ -42,6 +42,15 @@ An AWS instance fleet is a diverse set of EC2 instances designed for specific us
     * Application that require tailoring.
 
 
+5.) Are you supporting any applications? If yes what application sever?
+-----------------------------------------------------------------------
+No, I haven't worked with application servers for:
+
+Java: (Tomcat, JBoss, Weblogic)
+NodeJS: (IIS)
+Python: (Django)
+
+
 
 
 
