@@ -1,1 +1,22 @@
 
+
+
+1.) EC2 Instance Running Out of Disk Space:
+    Check /root - os:
+           - Investigate and clear space in /root.
+    Check the logs:
+           - Examine and free up space in /var/log and /tmp.
+    Check /application - for our application:
+           - Inquire about the application's purpose and log location.
+           - Explore clearing space in the application directory.
+           - If necessary, take an EBS Snapshot and increase the associated volume size.
+
+
+2.) Prometheus obtains metrics in two ways:
+
+    Pull Approach: Exposes metric endpoints (e.g., Java App/Node.js) for Prometheus to scrape data.
+
+    Push Approach: The App sends metrics via a gateway back to Prometheus for storage.
+
+    Q: Why choose PUSH?
+    A: For apps that may not run continuously, PUSH ensures timely metric updates.
