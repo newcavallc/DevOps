@@ -26,3 +26,9 @@ Prometheus is a toolkit for monitoring and alerting, ensuring system and applica
 It collects metrics to inform decision-making, supporting dashboards and alerting. It monitors Docker 
 containers, capturing CPU usage, memory, network traffic, and more, with built-in support for exporters 
 like Node Exporter and Docker.
+
+
+3.)What is Kubernetes kOpt (Kubernetes Operations)?
+---------------------------------------------------
+Kubernetes kOps is not limited to testing; it is a versatile tool used for production deployment and 
+management of Kubernetes clusters.
