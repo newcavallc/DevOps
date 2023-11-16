@@ -61,15 +61,7 @@ This ensures that every member of your team and your deployment systems use the 
 
 
 
-1.) EC2 Instance Running Out of Disk Space:
-   Check /root - os:
-           - Investigate and clear space in /root.
-   Check the logs:
-           - Examine and free up space in /var/log and /tmp.
-   Check /application - for our application:
-           - Inquire about the application's purpose and log location.
-           - Explore clearing space in the application directory.
-           - If necessary, take an EBS Snapshot and increase the associated volume size.
+
 
 
 
