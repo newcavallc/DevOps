@@ -68,6 +68,22 @@ Consider using external persistent storage like SPLUNK for app logs. SPLUNK is e
 log aggregation, analysis, and visualization, supporting Docker container log storage.
 
 
+8.) What is vertical scaling and horizontal scaling? Explain w/ a use case…
+---------------------------------------------------------------------------
+Vertical scaling: 
+    - increases CPU/RAM capacity, exemplified by moving an EC2 instance from 
+      Large to 2x.Large for enhanced features. 
+
+Horizontal scaling:
+    - manages incoming traffic, demonstrated by an Auto Scaling Group (ASG) handling 
+      increased load while maintaining the same app features.
+
+
+9.)
+
+
+
+
 
 
 
