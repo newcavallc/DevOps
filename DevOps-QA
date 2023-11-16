@@ -79,9 +79,10 @@ Horizontal scaling:
       increased load while maintaining the same app features.
 
 
-9.)
-
-
+9.) Explain REPLICATION CONTROLLER in Kubernetes:
+-------------------------------------------------
+The Replication Controller in Kubernetes ensures the specified number of pods (replicas) 
+from the YAML file are consistently present across the cluster.
 
 
 
