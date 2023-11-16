@@ -85,6 +85,20 @@ The Replication Controller in Kubernetes ensures the specified number of pods (r
 from the YAML file are consistently present across the cluster.
 
 
+10.) Do you use helm?
+     versin currently using, and do you see benefits to using this particular 
+     version?
+-------------------------------------------------------------------------------
+Yes, I’ve used v2 and v3.
+
+Currently using v3.
+Benefits include simplifying package management of Kubernetes apps in a cluster, enabling 
+sharing apps as reusable chart versions. This facilitates easier deployment, upgrades, and rollbacks.
+
+Additional Notes:
+Helm uses YAML files for chart definitions and configurations.
+Kubernetes uses YAML or JSON files for resource definitions (e.g., Pods, Services, Deployments).
+
 
 
 
