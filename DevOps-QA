@@ -2,6 +2,7 @@
 
 
 1.) EC2 Instance Running Out of Disk Space:
+-------------------------------------------
     Check /root - os:
            - Investigate and clear space in /root.
     Check the logs:
@@ -13,10 +14,15 @@
 
 
 2.) Prometheus obtains metrics in two ways:
-
+-------------------------------------------
     Pull Approach: Exposes metric endpoints (e.g., Java App/Node.js) for Prometheus to scrape data.
 
     Push Approach: The App sends metrics via a gateway back to Prometheus for storage.
 
     Q: Why choose PUSH?
     A: For apps that may not run continuously, PUSH ensures timely metric updates.
+
+Prometheus is a toolkit for monitoring and alerting, ensuring system and application reliability. 
+It collects metrics to inform decision-making, supporting dashboards and alerting. It monitors Docker 
+containers, capturing CPU usage, memory, network traffic, and more, with built-in support for exporters 
+like Node Exporter and Docker.
