@@ -51,6 +51,29 @@ NodeJS: (IIS)
 Python: (Django)
 
 
+6.) How to check logs on a Docker container - the last 200 lines?
+-----------------------------------------------------------------
+To check logs and filter only the last 200 lines, use the following command:
+# docker container logs <container_name> --tail 200
+
+This command will display the last 200 lines of the container logs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
