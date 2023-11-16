@@ -32,3 +32,20 @@ like Node Exporter and Docker.
 ---------------------------------------------------
 Kubernetes kOps is not limited to testing; it is a versatile tool used for production deployment and 
 management of Kubernetes clusters.
+
+
+4.) What is an instance fleet in AWS?
+-------------------------------------
+An AWS instance fleet is a diverse set of EC2 instances designed for specific use cases:
+    * pricing models
+    * Amazon EMR
+    * Application that require tailoring.
+
+
+
+
+
+
+
+
+
