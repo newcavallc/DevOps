@@ -58,6 +58,7 @@ To check logs and filter only the last 200 lines, use the following command:
 
 This command will display the last 200 lines of the container logs.
 
+
 7.)  What will happen to container logs if you restart the container? Will it be lost?
 --------------------------------------------------------------------------------------
 Restarting a container won't result in log loss; data is only lost upon container deletion 
