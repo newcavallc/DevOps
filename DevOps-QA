@@ -378,6 +378,96 @@ Dose PV support the access mode we need.
 * Classic Load Balancers
 * Application Load balancer
 
+Howto - CONFIGURE ALB
+You config  the listeners on the ALB, create target groups for the listeners. ABL routes the traffic to the appropriate TGs. Assoc. TGs with the ASG,  register instances in the ASG w/ TG's assoc w/ ALB
+
+In summary, the ALB acts as the entry point for incoming traffic and intelligently routes requests to the appropriate target groups associated with ASGs. It monitors the health of instances and ensures that traffic is evenly distributed while maintaining high availability and reliability for your applications hosted in the ASGs.
+
+* Network Load Balancer
+* Gateway Load Balancer
+
+(ALBs)
+Why do you used these????
+We are a micro services shop so we use ALB’s a lot more
+Because of their ability to handle microservices with advanced base routing.
+
+                                      +--------------+
+                                  |   Internet Gateway |
+                                      +--------------+
+                                                 |
+                                    +------------------------+
+                                    |   Gateway Load Balancer  |
+                                    |        (GWLB)            |
+                                    +------------------------+
+                                                 |
+                                    +------------------------+
+                                    |   Firewall Appliance    |
+                                    +------------------------+
+							       I
+							  VPC
+                                                 		|
+                                    +------------------------+
+                                    |   Application Load      |
+                                    |   Balancer (ALB)        |
+                                    |                        |
+                                    |   - Microservice A     |
+                                    |   - Microservice B     |
+                                    |   - ...                |
+                                    +------------------------+
+                                                 |
+                                    +------------------------+
+                                    |   Auto Scaling Group    |
+                                    |   (Microservice A)     |
+                                    |                        |
+                                    |   - EC2 Instances      |
+                                    |   - ...                |
+                                    +------------------------+
+                                                 |
+                                    +------------------------+
+                                    |   Auto Scaling Group    |
+                                    |   (Microservice B)     |
+                                    |                        |
+                                    |   - EC2 Instances      |
+                                    |   - ...                |
+                                    +------------------------+
+
+* Internet: This is where incoming traffic from the internet originates.
+* Gateway Load Balancer (GWLB): The GWLB acts as the entry point to your Virtual Private Cloud (VPC) and routes traffic to the firewall appliance for inspection and filtering.
+* Firewall Appliance: This is where your security policies and filtering rules are applied to incoming traffic. It ensures that only allowed traffic is forwarded to the Application Load Balancer.
+* Application Load Balancer (ALB): The ALB is used to distribute traffic among your microservices based on advanced routing rules (e.g., path-based or host-based routing).
+* Microservices (Microservice A, Microservice B, etc.): Behind the ALB, you have multiple microservices hosted in separate Auto Scaling Groups (ASGs). Each ASG contains EC2 instances that serve a specific microservice.
+* Auto Scaling Groups: ASGs are responsible for automatically scaling the number of EC2 instances based on demand, ensuring high availability and scalability for your microservices.
+
+
+
+Internet
+   |
+[GWLB]
+   |
+[Firewall]
+   |
+[VPC]
+   | \
+   |  \
+   |   \
+[ALB]  [Microservices]
+   |     |
+[Target Groups]
+
+ALB Additional Interview questions.
+
+
+* Question: Explain the difference between path-based routing and host-based routing in ALB. Answer: Path-based 
+routing routes traffic based on the URL path Host-based routing routes traffic based on the hostname (subdomain) in the URL.
+
+* Question: How can you implement cross-zone load balancing with ALB, and what are the benefits? Answer: Cross-zone load 
+balancing is enabled by default. It evenly distributes traffic across instances in all availability zones. 
+
+* Question: What is the difference between ALB and NLB in terms of layer and use cases? Answer: ALB operates at 
+Layer 7 (application layer) - ideal for routing traffic based on content. 
+Network Load Balancer (NLB) operates at Layer 4 (transport layer) and is designed for high-performance, low-latency 
+applications like TCP/UDP load balancing.
+
 
 
 
