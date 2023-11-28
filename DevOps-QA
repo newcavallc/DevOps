@@ -809,6 +809,118 @@ This query retrieves the total HTTP requests metric for a job named "my-app" run
 
 58B.) HOW WOULD YOU DO IT FOR ‘CLOUD WATCH’?
 
+DOMAIN: Git + Terraform
+59.) Explain how Terraform plan + apply happens when using CI/CD to provision a AWS/GCP infrastructure in your current project?
+- We’ll have Jenkins Installed a Dockerized, Jenkins agent. 
+- TF configs and Jenkins files will live the Said Github repo
+- Upon code changes, PR executed and then Code Review. If successful Merge code into Main Branch
+- CI/CD Job is triggers following the Init, Plan, Apply step defined in Jenkins file. 
+- Infrastructure build begins. 
+Doing it this way… you achieve automation, consistency, and traceability in the CI/CD pipeline.
+
+Note: There will be 100’s of TF Repos
+
+
+Let's assume I already have the Jenkins Server setup. In fact it's a Jenksins multinode cluster setup with 1 master and two slaves and now we add a Jenkins/agent container with Terraform installed on it. Well assign AWS Role which gives permissions to the container to have access to AWS Cloude and it's resources while running the Terraform code. Questions now... Does the Jenskins master have to be configured with the Jenkins/agent container as an agent? Is show show me the steps.
+
+
+This Assumes:
+
+  1. Provision an EC2 instance with Docker installed.
+2. Create a Dockerfile and build your Jenkins agent container on the EC2 instance.
+3. Push the agent container image to a container registry (optional) or use it directly on your Jenkins master server.
+4. Configure Jenkins to use the Jenkins agent container on your Jenkins master server as needed.
+5. Create AWS ROLE w/ all req perms are allocated for the Container to access AWS and perform the TF Build.
+6. Setup TF CODE and Jenkins File in Github repo
+7. Setup CI/CD Job and Triggers.
+
+Now, your Jenkins master is configured with the Jenkins agent container as a new agent. Jenkins will use this agent for job execution based on labels and availability settings. The Jenkins master will distribute jobs to this agent just like it does for other agents in the Jenkins cluster.
+Ensure that the agent's IAM role is properly configured to allow the agent to interact with AWS resources, as you mentioned, and that the agent's label matches the labels used in your Jenkins jobs.
+
+SCENARIO PIPELINE
+
+- DevOps Eng. Checks out a Feature branch of TF and Commit some changes
+- Executes a PR request
+- Code Review ensues 
+- Branch is merged into the Master Branch - CI JOB Kicks off
+- TF Code and the Jenkins file get checked out by Jenkins. 
+
+
+HOW OUR JENKINS FILE SHOULD LOOK 
+
+pipeline {
+    agent {
+        label 'my-agent-label' // Specify the label of your Jenkins agent
+    }
+    environment {
+        AWS_DEFAULT_REGION = 'us-west-2'
+    }
+
+    stages {
+       stage ( SCM Checkout Code ) {
+           steps {
+           }
+              
+        stage('Start Jenkins Agent Container') {
+            agent {
+                docker {
+                    image 'my-jenkins-agent:latest' // Replace with the name of your Jenkins agent Docker image
+                    args '-e JENKINS_URL=http://jenkins-server:8080 -e JENKINS_AGENT_NAME=my-agent-name'
+                }
+            }
+            steps {
+                script {
+                    // Assume the AWS IAM role here, if not already configured in your Docker agent container
+                    sh 'aws sts assume-role --role-arn arn:aws:iam::123456789012:role/JenkinsRole --role-session-name JenkinsAssumeRole --duration-seconds 900 > role-credentials.json'
+                    withCredentials([file(credentialsBinding: 'role-credentials.json', variable: 'ROLE_CREDS')]) {
+                        // No need to export AWS access keys or session tokens here
+                    }
+                }
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                script {
+                    // Initialize Terraform
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    // Generate a Terraform execution plan
+                    sh 'terraform plan'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                script {
+                    // Apply the Terraform changes (use --auto-approve to avoid interactive confirmation)
+                    sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+    }
+    post {
+        success {
+            // Additional steps to run on successful deployment
+        }
+        failure {
+            // Additional steps to run on deployment failure
+        }
+    }
+}
+
+
+To summarize, your Jenkins agent container, when started and configured with the Jenkinsfile, will assume the specified 
+AWS IAM role for AWS interactions, including Terraform deployments, within your CI/CD pipeline.
+
+
 
 
 
