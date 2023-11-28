@@ -683,4 +683,55 @@ Now, you can run your Ansible playbook against these servers. For example, if yo
 * # ansible-vault encrypt encrypt_file.txt
 * Or integrate it with Hashi Corp Vault
 
+48.) What is a Blue / Green deployment?
+It’s a software release strategy where you have 2 identical environments. Blue representing the current running  prod env and green contains the updated release. You switch over the traffic to Green for testing and can easily be rolled back. 
+
+
+Blue —> Running  v1.0
+[ Network Switch is pointing to BLUE ]   (Routing Control by ROUTE53 or F5)
+
+- New deployment =  1.01
+- Deploy on “Green”
+Green —>  now Running v1.01
+
+- Route Traffic from Blue to Green
+[ Network Switch is pointing to GREEN ]	(Routing Control by ROUTE53 or F5)
+
+- Now we MONITOR the GREEN Environment
+- Any Issue: Change network config to roll back to BLUE .
+
+
+49.) What does a Mult-Branch Pipeline project intel?
+
+You need different branches in your git repo. W/ separate Jenkins Files
+- Master - JenkinsFile
+- Staging - JenkinsFIle
+- Dev - JenkinsFile
+
+.50) What is a Market Place AMI
+It’s where you can find external software that can be used w/o signing a specific contract. 
+It’s basically how 3rd party companies earn money
+* You spin up a EC2 instance - Cost paid to AWS
+* You use say RedHat AMI with that EC2 - Cost is paid to Redhat.
+
+51.) A dev team wishes to go with a NoSQL DB, but what is this NoSQL DB and do we have something in AWS that can be used as a NoSQL DB?
+
+Store large volumes of un-structured data, no fix schemas. 
+* AWS DynamoDB (key/value Document Store), DocumentDB
+
+52.) We have an on-premises linux server which needs some monitoring enable. Being a DevOps engineer only you have access to this server. How would you setup basic monitoring script on it?
+
+Write a Python script w/…
+* Import psutil                 // This python module can monitor any kind of server resources. 
+* Exist in Pipit package
+* # pip install psutil
+* Cpu, load, memory Disk usage, Disk I/O
+
+53.) Why is logging important? What is centalised logging and what tools help to achieve centralized logging?
+
+* Logging can help you debug and fix issue pertaining to your application. 
+* Centralize logging you can dump to: Splunk, S3,  CloudWatch, Elastic Search, DataDog(Log Aggregator)
+
+
+
 
