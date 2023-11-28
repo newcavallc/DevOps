@@ -184,7 +184,8 @@ Note:
 Note:
 helm s3 init:
 * helm s3 init is a command provided by the Helm S3 plugin.
-* It is used to initialize an S3 bucket as a Helm chart repository. This means that you can use an S3 bucket to store and serve Helm charts.
+* It is used to initialize an S3 bucket as a Helm chart repository. This means that you can use an S3 bucket to 
+store and serve Helm charts.
 * You specify the S3 bucket's path as the repository URL when using this command.
 * Example:
 # helm s3 init s3://my-helm-bucket/charts
@@ -269,10 +270,12 @@ How would you come up with a solution for such a design and ensure these package
 25.) Why do we have 3 different kinds of IAM policy types?
 - Managed Policy: Created and maintained by AWS
 
-- Customer Managed Policy: Customer-managed policies are separate standalone policies that you can create, edit, and then attach to 
+- Customer Managed Policy: Customer-managed policies are separate standalone policies that you can create, edit, and 
+then attach to 
 multiple IAM users, groups, or roles as needed. Will persist after IAM, U or G is deleted. 
 
-- Inline Policy:  Inline policies can be created and are specific to an IAM user, group, or role. They cannot be reused or shared 
+- Inline Policy:  Inline policies can be created and are specific to an IAM user, group, or role. 
+They cannot be reused or shared 
 with other users, groups, or roles. When U,G or R is deleted so is the inline policy. 
 
 26.) Which build tools are you aware of and what are the build tools used in the project?
@@ -516,15 +519,18 @@ ASG —> EC2 —> Application —> unhealthy (ASG Terminates EC2)
 
 37.) What does terraform state lock really mean? Do we have a practical use of it?
 When you execute 	///		# terraform apply
-* Prevents concurrent access to the same Terraform state file - avoiding conflict and data corruption to the TF  infrastructure.
+* Prevents concurrent access to the same Terraform state file - avoiding conflict and data corruption to the 
+TF  infrastructure.
 
-38.) Currently you have a Jenkins job, but we don’t have any kind of notifications on job success or failures. We use soak for our internal communications.
+38.) Currently you have a Jenkins job, but we don’t have any kind of notifications on job success or failures. 
+We use soak for our internal communications.
 How would you enable a notification service in this case?
 
 * Install the Email and Notification Plugin for SLACK.
 * Configure with Authentication Token and Slack Webhook.
 
-39.) In a Ansible playbook, We have a section which could fail on certain nodes. But we don’t want the playbook to stop or exit b/c of this.
+39.) In a Ansible playbook, We have a section which could fail on certain nodes. But we don’t want the playbook 
+to stop or exit b/c of this.
 Is it possible to ignore this if this part of the playbook fails. 
 
 * Yes, by using the “ignore_errors sub  argument”
@@ -603,7 +609,8 @@ IMPORTANT QUESTION WILL BE ASKE FIRST….
 43.) Tell me about yourself and what your day to day task being a DevOps engineer?
 
 43/A.) What Is DevOps
-It’s a methodology, a culture. A collaboration between Developers and IT operation to stream line code through Automated testing and deployment. Bottom line - Accelerate Software Delivery. 
+It’s a methodology, a culture. A collaboration between Developers and IT operation to stream line code through 
+Automated testing and deployment. Bottom line - Accelerate Software Delivery. 
 
 My day starts at 9am 
 - Check my slack messages
@@ -617,7 +624,8 @@ My day starts at 9am
 * Maven projects
 
 Domain: K8s
-44.) We want to launch certain pods only on specific nodes. These nodes should explicitly use only the pods. Is it possible to control the deployment of pods in such a given scenario?
+44.) We want to launch certain pods only on specific nodes. These nodes should explicitly use only the pods. 
+Is it possible to control the deployment of pods in such a given scenario?
 
 * You use “NODE TAINTS”
 # kubectl taint nodes <node-name> <taint-key>=<taint-value>:NoSchedule
@@ -639,9 +647,11 @@ spec:
     value: <taint-value>
     effect: NoSchedule
 
-45.) Let’s say you have 2 servers with different ports and username then how can ansible handle different machines for applying and running the same runbook?
+45.) Let’s say you have 2 servers with different ports and username then how can ansible handle different 
+machines for applying and running the same runbook?
 
-* Create a separate inventory group for each server w/ specific connection details. Then specify the target those target groups when running the playbook.
+* Create a separate inventory group for each server w/ specific connection details. Then specify the target 
+those target groups when running the playbook.
 
 Example:
 
@@ -667,7 +677,8 @@ Create an Ansible inventory file (e.g., inventory.ini) with the following conten
 192.168.1.101 ansible_ssh_user=user2
 ———————————————————————
 
-Now, you can run your Ansible playbook against these servers. For example, if your playbook is named my_playbook.yml, you can run it like this:
+Now, you can run your Ansible playbook against these servers. For example, if your playbook is named 
+my_playbook.yml, you can run it like this:
 
 # ansible-playbook -i inventory.ini web_servers my_playbook.yml
 
@@ -677,14 +688,17 @@ Now, you can run your Ansible playbook against these servers. For example, if yo
 
 * Web servers serve web content, while application server on the backend runs web app logic.
 
-47.) How can we handle secrets in ansible? Let’s say we have a playbook which needs to login to premises server with login name and password
+47.) How can we handle secrets in ansible? Let’s say we have a playbook which needs to login to premises 
+server with login name and password
 
 * # echo “data to be  encrypted’> encrypt_file.txt
 * # ansible-vault encrypt encrypt_file.txt
 * Or integrate it with Hashi Corp Vault
 
 48.) What is a Blue / Green deployment?
-It’s a software release strategy where you have 2 identical environments. Blue representing the current running  prod env and green contains the updated release. You switch over the traffic to Green for testing and can easily be rolled back. 
+It’s a software release strategy where you have 2 identical environments. Blue representing the current 
+running  prod env and green contains the updated release. You switch over the traffic to Green for testing 
+and can easily be rolled back. 
 
 
 Blue —> Running  v1.0
@@ -714,12 +728,14 @@ It’s basically how 3rd party companies earn money
 * You spin up a EC2 instance - Cost paid to AWS
 * You use say RedHat AMI with that EC2 - Cost is paid to Redhat.
 
-51.) A dev team wishes to go with a NoSQL DB, but what is this NoSQL DB and do we have something in AWS that can be used as a NoSQL DB?
+51.) A dev team wishes to go with a NoSQL DB, but what is this NoSQL DB and do we have something in AWS 
+that can be used as a NoSQL DB?
 
 Store large volumes of un-structured data, no fix schemas. 
 * AWS DynamoDB (key/value Document Store), DocumentDB
 
-52.) We have an on-premises linux server which needs some monitoring enable. Being a DevOps engineer only you have access to this server. How would you setup basic monitoring script on it?
+52.) We have an on-premises linux server which needs some monitoring enable. Being a DevOps engineer only 
+you have access to this server. How would you setup basic monitoring script on it?
 
 Write a Python script w/…
 * Import psutil                 // This python module can monitor any kind of server resources. 
@@ -739,12 +755,14 @@ NOTE:
 Multiple container running in a POD can be destroyed at any time  so their logging is directed
 To the SIDE CAR CONTAINER. 
 
-55.) Terraform apply is failing. The process is in a hung state. Now if you cancel this it might result in corrupt terraform state.
+55.) Terraform apply is failing. The process is in a hung state. Now if you cancel this it might result 
+in corrupt terraform state.
 How would you debug this issue? 
 
 * I’d save the remote statefile first
 - Connect to a new Terminal 
-- terraform state pull     ///    This pulls remote statefile to your local desktop filesystem like a backup an avoiding corruption. 
+- terraform state pull     ///    This pulls remote statefile to your local desktop filesystem like a 
+backup an avoiding corruption. 
 - Kill the process “terraform apply” and run it again. 
 - If it doesn’t work then I’ll just replace the current statefile w/ my backup. 
 
@@ -757,7 +775,8 @@ Working branch —> You make changes —> Open a PR —> Get a review —> Merge
 - If there are no protections in place then a dev can just BYPASS (PR & Review) and merge the code. This is incorrect!
 
 * You must enable “Branch Protection Rules”
-- Goto Master Repo, Click Settings, Click Branches, Click Add branch protection rules, Check “Require Pull Request B4 Merging” (Requiring x-number of approvals.)
+- Goto Master Repo, Click Settings, Click Branches, Click Add branch protection rules, Check “Require Pull 
+Request B4 Merging” (Requiring x-number of approvals.)
 
 (DOMAIN: Kubernetes)
 57.) How does the K8’s scheduler quickly assign worker nodes for pods?
@@ -765,13 +784,17 @@ Explain the internal workings of K8’s scheduler.
 
 Control Plane Consist of:
 
-* Kubernetes API Server (kube-apiserver): This is the front-end for the control plane. It exposes the Kubernetes API, which is used by other components and users to interact with the cluster.
+* Kubernetes API Server (kube-apiserver): This is the front-end for the control plane. It exposes the 
+Kubernetes API, which is used by other components and users to interact with the cluster.
 
-* etcd: This is a distributed key-value store that stores the cluster's configuration data and state. It is the single source of truth for the cluster.
+* etcd: This is a distributed key-value store that stores the cluster's configuration data and state. 
+It is the single source of truth for the cluster.
 
-* Kubernetes Controller Manager: This component runs controller processes that regulate the state of the system. Examples include the Replication Controller and Node Controller.
+* Kubernetes Controller Manager: This component runs controller processes that regulate the state of the system. 
+Examples include the Replication Controller and Node Controller.
 
-* Kubernetes Scheduler: The scheduler is responsible for placing pods onto nodes based on resource requirements, node constraints, and other policies.
+* Kubernetes Scheduler: The scheduler is responsible for placing pods onto nodes based on resource requirements, 
+node constraints, and other policies.
 
 
 SHORT:
@@ -779,7 +802,9 @@ The Kubelet reports node information to the K8’s API server, which in turn sto
 and retrieves this data whenever the scheduler request it. 
 
 LONG:
-The kubelet on each worker node monitors the node's health, including resource usage (such as disk space, memory, and OS health), and reports this information to the Kubernetes API server. The API server stores this data and uses it for various cluster management tasks, including scheduling decisions and node health monitoring.
+The kubelet on each worker node monitors the node's health, including resource usage (such as disk space, memory, 
+and OS health), and reports this information to the Kubernetes API server. The API server stores this data and uses 
+it for various cluster management tasks, including scheduling decisions and node health monitoring.
 
 - Two Step Process:
 1.) Filtering
@@ -810,7 +835,8 @@ This query retrieves the total HTTP requests metric for a job named "my-app" run
 58B.) HOW WOULD YOU DO IT FOR ‘CLOUD WATCH’?
 
 DOMAIN: Git + Terraform
-59.) Explain how Terraform plan + apply happens when using CI/CD to provision a AWS/GCP infrastructure in your current project?
+59.) Explain how Terraform plan + apply happens when using CI/CD to provision a AWS/GCP infrastructure in your 
+current project?
 - We’ll have Jenkins Installed a Dockerized, Jenkins agent. 
 - TF configs and Jenkins files will live the Said Github repo
 - Upon code changes, PR executed and then Code Review. If successful Merge code into Main Branch
@@ -821,7 +847,11 @@ Doing it this way… you achieve automation, consistency, and traceability in th
 Note: There will be 100’s of TF Repos
 
 
-Let's assume I already have the Jenkins Server setup. In fact it's a Jenksins multinode cluster setup with 1 master and two slaves and now we add a Jenkins/agent container with Terraform installed on it. Well assign AWS Role which gives permissions to the container to have access to AWS Cloude and it's resources while running the Terraform code. Questions now... Does the Jenskins master have to be configured with the Jenkins/agent container as an agent? Is show show me the steps.
+Let's assume I already have the Jenkins Server setup. In fact it's a Jenksins multinode cluster setup with 1 master 
+and two slaves and now we add a Jenkins/agent container with Terraform installed on it. Well assign AWS Role which 
+gives permissions to the container to have access to AWS Cloude and it's resources while running the Terraform code. 
+Questions now... Does the Jenskins master have to be configured with the Jenkins/agent container as an agent? Is 
+show show me the steps.
 
 
 This Assumes:
@@ -834,8 +864,11 @@ This Assumes:
 6. Setup TF CODE and Jenkins File in Github repo
 7. Setup CI/CD Job and Triggers.
 
-Now, your Jenkins master is configured with the Jenkins agent container as a new agent. Jenkins will use this agent for job execution based on labels and availability settings. The Jenkins master will distribute jobs to this agent just like it does for other agents in the Jenkins cluster.
-Ensure that the agent's IAM role is properly configured to allow the agent to interact with AWS resources, as you mentioned, and that the agent's label matches the labels used in your Jenkins jobs.
+Now, your Jenkins master is configured with the Jenkins agent container as a new agent. Jenkins will use this 
+agent for job execution based on labels and availability settings. The Jenkins master will distribute jobs to 
+this agent just like it does for other agents in the Jenkins cluster.
+Ensure that the agent's IAM role is properly configured to allow the agent to interact with AWS resources, 
+as you mentioned, and that the agent's label matches the labels used in your Jenkins jobs.
 
 SCENARIO PIPELINE
 
