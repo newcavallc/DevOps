@@ -514,3 +514,33 @@ CHECK THE FOLLOWING:
 
 ASG —> EC2 —> Application —> unhealthy (ASG Terminates EC2) 
 
+37.) What does terraform state lock really mean? Do we have a practical use of it?
+When you execute 	///		# terraform apply
+* Prevents concurrent access to the same Terraform state file - avoiding conflict and data corruption to the TF  infrastructure.
+
+38.) Currently you have a Jenkins job, but we don’t have any kind of notifications on job success or failures. We use soak for our internal communications.
+How would you enable a notification service in this case?
+
+* Install the Email and Notification Plugin for SLACK.
+* Configure with Authentication Token and Slack Webhook.
+
+39.) In a Ansible playbook, We have a section which could fail on certain nodes. But we don’t want the playbook to stop or exit b/c of this.
+Is it possible to ignore this if this part of the playbook fails. 
+
+* Yes, by using the “ignore_errors sub  argument”
+- name: Do not count this as a failure
+	ansible.builtin.command: /bin/false
+		ignore_errors:  yes
+
+40.) If you were to make a change for a commit done 30 days ago with respect to a machine type used?
+How would you go about doing this change.
+Would you directly change it?
+
+* No, I wouldn’t directly change it w/o knowing to the history behind it. 
+- Got to repo (Github UI) and check GIT BLAME for history —> and then possibly make those changes. 
+a.) # git clone on the Repo
+b.) Create a new branch
+c.) Apply the changes
+
+
+
