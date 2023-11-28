@@ -593,5 +593,52 @@ for log_file in log_files:
 print("Log files uploaded to S3 successfully.")
 
 
+42.) Explain in simple terms what is a package in Python?
+* Python package is  a collection of Python modules in a directory hierarchy starting with a special file __init__.py
+- Modules have functions
+* A Python Module = It a file with Python code, variables and data. 
+* “OS” is a package, ea module has a particular usecase and multiple functions available.
+
+IMPORTANT QUESTION WILL BE ASKE FIRST….
+43.) Tell me about yourself and what your day to day task being a DevOps engineer?
+
+43/A.) What Is DevOps
+It’s a methodology, a culture. A collaboration between Developers and IT operation to stream line code through Automated testing and deployment. Bottom line - Accelerate Software Delivery. 
+
+My day starts at 9am 
+- Check my slack messages
+- Update my Jira tickets 
+- We have a daily standup (Discuss what I’ve done, what I’m working on today
+- After, I’ll got work on my Jira tickets and latest request.
+* Code Reviews
+* AWS request 
+* Making Operations changes
+* Work with devs on: Design discussion and request to setup integrations test in the Kubernetes environment. 
+* Maven projects
+
+Domain: K8s
+44.) We want to launch certain pods only on specific nodes. These nodes should explicitly use only the pods. Is it possible to control the deployment of pods in such a given scenario?
+
+* You use “NODE TAINTS”
+# kubectl taint nodes <node-name> <taint-key>=<taint-value>:NoSchedule
+Pod w/ a matching toleration will deploy on the tainted node.
+Pod w/o will be repelled from tainted node.
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+    - name: my-container
+      image: my-image
+  tolerations:
+  - key: <taint-key>
+    operator: Equal
+    value: <taint-value>
+    effect: NoSchedule
+
+
 
 
