@@ -1010,6 +1010,24 @@ So when a docker image is pushed to the registry, your CI job kicks off, spins u
 container in a staging environment where Unit and Integrations test will be performed. 
 
 
+63.) What is CRON and ow does it work in Linux?
+- Is a Job Scheduler
+- Crond is the daemon runs in background, reads crontab files containing jobs. Runs the jobs
+       the scheduled jobs. 
+
+Access Crontab File
+# crontab -e
+
+Log File Location
+—————————
+/var/log/syslog
+/var/log/cron.log
+
+63b.) How would you know a cron job has failed. 
+Checking the logs.
+
+
+
 
 
 
