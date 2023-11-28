@@ -206,7 +206,42 @@ DEPLOY CHART straight from Bucket
 # helm install my-release s3://<your-bucket-name>/<path-to-charts>/<chart-name>
 
 
+17.) Have you use Jenkins in multi node setup? If yes, explain how to add a new slave/follower to the master?
+Directive: Practice setting up through Terraform.
+* Yes I worked in a Jenkins Multi-node Setup. High Availability. 
+* Log into Jenkins - Manage Jenkins - Manage Nodes and Clouds - Give Slave Info: (Node IP, PW, Username…”
+Gets Register W/ Mater Node
 
+a.) Can we add slaves dynamically?
+* Sure, Add an Auto Scaling Group 
+
+18.) Explain how you would block an IAM user from accessing a specific s3 bucket?
+* Go into s3… Under Permissions / Bucket Policy…
+* Mention the IAM User ARN and DENY Permission
+
+19.) You encounter a docker image with size 2.7GB… Cause for Concern? 
+* Depends on what the Application is being used for
+* The Bigger it is - results in LONGER BUILD TIME, Download Errors.
+
+A.) If yes, how would you tackle this?
+* Use smaller Image (Alpine Image)      /// Light and doesn’t have unnecessary packages installed.
+* Remove packages binaries and  remove packages that are NOT required. 
+
+NOTE:
+When IAM users or groups are created - they are assigned a unique identifier called  an ARN (Amazon Resource Name),
+
+20.)  What does this IAM POLICY mean? Can you read it.
+
+{ 
+“version “ “ “ 2012-10-17”, 
+“Statement”: [
+     {
+        “Sid”: “AllowS3ListRead”,  <——  Organized Unique identifier.  
+        “Effect: “Allow:,		<——  Allow the following actions
+        “Action”: [
+              “s3:GetBucketLocation”,
+              “s3:GetAccountPublicAccessBlock”,   <—— These are the actions we’re allowing.
+              “s3:ListAccessPoints”
 
 
 
