@@ -950,19 +950,30 @@ DOMAIN: Github
 # git revert <CommitID#>
 # git push origin
 
-* git reset: This command moves the HEAD and branch pointers to a specified commit, effectively "rewinding" the branch history. It's often used to undo local commits.
+* git reset: This command moves the HEAD and branch pointers to a specified commit, effectively "rewinding" 
+the branch history. It's often used to undo local commits.
 
-* git revert: This command creates a new commit that undoes the changes made by a previous commit. It is a safe way to undo changes, especially when working in a shared repository.
+* git revert: This command creates a new commit that undoes the changes made by a previous commit. It is 
+a safe way to undo changes, especially when working in a shared repository.
 
-* HEAD: HEAD is a symbolic reference in Git that points to the most recent commit in the current branch. It represents the snapshot of your last commit.
+* HEAD: HEAD is a symbolic reference in Git that points to the most recent commit in the current branch. 
+It represents the snapshot of your last commit.
 
-* Cherry Picking: The process of selecting a specific commit from one branch and applying it to another branch. It allows you to choose and merge individual commits rather than merging entire branches.
+* Cherry Picking: The process of selecting a specific commit from one branch and applying it to another branch. 
+It allows you to choose and merge individual commits rather than merging entire branches.
 
 
 Note: 
 What is “git reset”?
 What is “Cherry Pick”?
 Or you can create a New PR and change it. 
+
+
+62.) What is the best use case of Dockerhub web hook integration?
+
+Configure your Container registry to send Webhook events. Configure your CI/CD pipeline to listen for those webhook events. 
+So when a docker image is pushed to the registry, your CI job kicks off, spins up the 
+container in a staging environment where Unit and Integrations test will be performed. 
 
 
 
