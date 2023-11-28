@@ -100,13 +100,110 @@ Helm uses YAML files for chart definitions and configurations.
 Kubernetes uses YAML or JSON files for resource definitions (e.g., Pods, Services, Deployments).
 
 
+11.) 
+	a.) What is a Python Module?
+		* Reusable files w/ Python code and data inside.
+	
+	b.) Explain what `if _ _name_ _ == “_ _main_ _”:  means?
+        * That is a common construct that controls the execution of code. 
+        * If I’m being run directly then execute said code. If I’m being imported - don’t execute me. 
+        * The __name__ variable is a built-in Python variable that is automatically set by the Python interpreter.
+
+	c.) Can you tell me what Boto3 is?
+        * Boto3 is an (SDK) provided by Amazon for interacting with AWS services and resources.
+
+	d.)Which python module would you use to make a simple API testing call.
+	       Note: The code should just checkin an API endpoint is working or not.
+        * I would use the requests module with “get” function check the status_code of the URL endpoint.
 
 
+I.e,
+import requests
+
+url = 'https://example.com/api/endpoint'  # Replace with your API endpoint URL
+
+response = requests.get(url)
+
+if response.status_code == 200:
+    data = response.json()  # Assuming the response is in JSON format
+    print(data)
+else:
+    print(f'Error: {response.status_code}')
+
+	E.) How would you setup a virtual environment in Python
+		sh 'python3 -m venv myenv'
+                sh 'source myenv/bin/activate'
+                sh 'pip install -r requirements.txt'
+                sh 'python3 my_test_script.py'
+                sh ‘deactivate’
 
 
+12.) What is remote-exec in Terraform and when will you use it?
+        * It just executes a script on the remote resources after it’s created.
+        * Let’s say we use TF code to spin up an EC2, then we can use remote-exec to execute a script. 
 
+13.) Can we have Jenkins agent which is a docker container and run our test inside this docker container?
+        * Yes, Standard way companies implement pipelines.
+        * Usually the Jenkins servers are in an HA cluster (Master - Slave relationship)
 
+14.) What are some way in which you have setup alerting?
+We used Prometheus and through Alertmanager phone call and Email alerts would be triggered.  
 
+        * Prometheus —> Will trigger alert through “Alertmanager”. 
+        * Cloudwatch - SNS
+        * Nagios - Alerting
+        * Alert Notifications through: Email, mobile phone call, Slack Message.
+
+15.) What are HELM Charts?
+        * It’s a packaged application - pre-configured template w/ values. 
+
+NOTE: Known Chart Repos
+https://artifacthub.io/
+
+Bitnami Charts (Bitnami):
+* URL: https://bitnami.com/stacks/helm
+* Description: Bitnami offers a collection of Helm charts for popular open-source software. These charts are often used in production environments and are known for their 
+
+Helm Hub (Official):
+* URL: https://hub.helm.sh/
+* Description: The official Helm chart repository that provides a curated collection of charts maintained by the Helm project.
+
+Extra:
+
+HELM PRE-REQS
+Add s3 Plugin to Helm
+# helm plugin install https://github.com/hypnoglow/helm-s3.git
+
+Add s3 to Helm Repo
+# helm s3 init s3://<your-bucket-name>/<path-to-charts>
+Note:
+- S3 is Cloud Based Object Storage
+- It uses HTTP for transport
+- Offers a Restful API to interface with objects in the bucket. 
+
+Note:
+helm s3 init:
+* helm s3 init is a command provided by the Helm S3 plugin.
+* It is used to initialize an S3 bucket as a Helm chart repository. This means that you can use an S3 bucket to store and serve Helm charts.
+* You specify the S3 bucket's path as the repository URL when using this command.
+* Example:
+# helm s3 init s3://my-helm-bucket/charts
+
+helm repo add:
+* helm repo add is used to add a remote Helm chart repository to your Helm client.
+* It's typically used for public or private Helm chart repositories hosted on HTTP/HTTPS 
+# helm repo add stable https://charts.helm.sh/stable
+
+# helm repo update
+
+PACKAGE HELM CHART
+# helm package - -version <name>.v1.0.0 .     (Archiving Helm chart in current directory)
+
+COPY CHART to S3 Bucket assuming AWS CLI is installed. 
+# aws s3 cp /path/to/your/helm/chart.tar.gz s3://your-s3-bucket-name/path/to/destination/
+
+DEPLOY CHART straight from Bucket
+# helm install my-release s3://<your-bucket-name>/<path-to-charts>/<chart-name>
 
 
 
