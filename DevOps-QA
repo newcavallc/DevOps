@@ -542,5 +542,56 @@ a.) # git clone on the Repo
 b.) Create a new branch
 c.) Apply the changes
 
+41.) Create a script that will push certain logs to S3 automatically.
+Explain only high level design which is enough. Share what all steps you would do to achieve this above script. 
+
+Note: You can used Python “Time” module or put Python script in Linux Cron Job.
+
+import boto3
+import os
+import glob
+import time
+
+# Initialize the S3 client
+s3 = boto3.client('s3')
+
+# Specify the local directory where your log files are located
+log_directory = '/path/to/log/files/'
+
+# Specify the S3 bucket name and prefix (folder) where you want to store the logs
+bucket_name = 'your-s3-bucket-name'
+s3_prefix = 'logs/'
+
+# Specify the file extensions of the logs you want to upload
+log_extensions = ['.log', '.txt']
+
+# Calculate the time until the next scheduled execution (in seconds)
+# For example, to run the script at 2:00 PM, set the desired_hour to 14 (24-hour format)
+desired_hour = 14  # Adjust this to your desired hour
+current_hour = time.localtime().tm_hour
+seconds_until_execution = (desired_hour - current_hour) * 3600  # 3600 seconds in an hour
+
+# Sleep until the desired execution time
+if seconds_until_execution > 0:
+    print(f"Sleeping for {seconds_until_execution} seconds until {desired_hour}:00 PM...")
+    time.sleep(seconds_until_execution)
+
+# Get a list of log files matching the specified extensions in the local directory
+log_files = [f for f in glob.glob(os.path.join(log_directory, '*')) if os.path.splitext(f)[1] in log_extensions]
+
+# Iterate through the log files and upload them to S3
+for log_file in log_files:
+    # Extract the file name without the path
+    log_filename = os.path.basename(log_file)
+    
+    # Construct the S3 object key (path in the bucket)
+    s3_object_key = s3_prefix + log_filename
+    
+    # Upload the log file to S3
+    s3.upload_file(log_file, bucket_name, s3_object_key)
+
+print("Log files uploaded to S3 successfully.")
+
+
 
 
