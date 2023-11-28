@@ -244,7 +244,36 @@ When IAM users or groups are created - they are assigned a unique identifier cal
               “s3:ListAccessPoints”
 
 
+21.) What is PV and PVC in Kubernetes? What role do they play?
+*  PV is a cluster wide resource and represents the physical storage (Disk or NAS/External Storage Device) for the cluster.
+* PVC is a request for storage by a user or application running in a namespace (project).
 
+22.) When using Terraform to create RDS, how do you save the DB username and password securely?
+* Use a Hashicorp Vault to store creds, mention Vault in the terraform Provider Block
+* DB’s are  used to retrieve info  from a data sources or query data (Internally/Externally).
+* Write Data Block inside Main.tf requesting those secrets.   /// Data Block query/retrieve info from Data Resources. 
+
+23.) What kinds of DB’s have you encountered, supported in the past?
+- ETCD is a key-value store DB.
+* It stores crucial configuration and state information of the Cluster. 
+* Little of RDS/MySql
+( Formulate more in-depth experience w/ MySql)
+
+24.) Your security team has insisted that certain packages (Security) related ha to be  present on all the instances for defense project.
+
+How would you come up with a solution for such a design and ensure these packages will be present on all EC2 Instances that shall be used? 
+* Use Custom AMI’s as a solution…
+* Packer enables you to create identical machine images for multiples platform from a single source template.
+* JSON ——> Packer —-> OS Image.
+
+25.) Why do we have 3 different kinds of IAM policy types?
+- Managed Policy: Created and maintained by AWS
+
+- Customer Managed Policy: Customer-managed policies are separate standalone policies that you can create, edit, and then attach to 
+multiple IAM users, groups, or roles as needed. Will persist after IAM, U or G is deleted. 
+
+- Inline Policy:  Inline policies can be created and are specific to an IAM user, group, or role. They cannot be reused or shared 
+with other users, groups, or roles. When U,G or R is deleted so is the inline policy. 
 
 
 
