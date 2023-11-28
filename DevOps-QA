@@ -759,7 +759,55 @@ Working branch —> You make changes —> Open a PR —> Get a review —> Merge
 * You must enable “Branch Protection Rules”
 - Goto Master Repo, Click Settings, Click Branches, Click Add branch protection rules, Check “Require Pull Request B4 Merging” (Requiring x-number of approvals.)
 
+(DOMAIN: Kubernetes)
+57.) How does the K8’s scheduler quickly assign worker nodes for pods?
+Explain the internal workings of K8’s scheduler.
 
+Control Plane Consist of:
+
+* Kubernetes API Server (kube-apiserver): This is the front-end for the control plane. It exposes the Kubernetes API, which is used by other components and users to interact with the cluster.
+
+* etcd: This is a distributed key-value store that stores the cluster's configuration data and state. It is the single source of truth for the cluster.
+
+* Kubernetes Controller Manager: This component runs controller processes that regulate the state of the system. Examples include the Replication Controller and Node Controller.
+
+* Kubernetes Scheduler: The scheduler is responsible for placing pods onto nodes based on resource requirements, node constraints, and other policies.
+
+
+SHORT:
+The Kubelet reports node information to the K8’s API server, which in turn stores the data in “etcd” database
+and retrieves this data whenever the scheduler request it. 
+
+LONG:
+The kubelet on each worker node monitors the node's health, including resource usage (such as disk space, memory, and OS health), and reports this information to the Kubernetes API server. The API server stores this data and uses it for various cluster management tasks, including scheduling decisions and node health monitoring.
+
+- Two Step Process:
+1.) Filtering
+The scheduler filters out any unsuitable nodes based on POD resource requirements. 
+
+2.) Scoring
+The scheduler picks the node with the best score which is based on resources, load and what have you.
+
+
+58.) Please explain how to create your dashboard for monitoring services in your current project.
+- Prometheus:
+
+- Open a web browser and navigate to Grafana Web UI
+- 3 Clicks: (Acronym C-D-PANEL)
+- ‘Create’ menu
+- ’Dashboard’
+- ‘Add New Panel’, EDIT
+			* Choose Data Source: Prometheus
+			* Write your PromQL Query to fetch the metrics
+			* http_requests_total{job="my-app", port="80"}
+NOTE:
+This query retrieves the total HTTP requests metric for a job named "my-app" running on port 80.
+
+- Visualization Section: Choose your Visual Representation. 
+- SAVE the PANEL and DASHBOARD
+- Access and share the DASHBOARD
+
+58B.) HOW WOULD YOU DO IT FOR ‘CLOUD WATCH’?
 
 
 
