@@ -920,6 +920,52 @@ pipeline {
 To summarize, your Jenkins agent container, when started and configured with the Jenkinsfile, will assume the specified 
 AWS IAM role for AWS interactions, including Terraform deployments, within your CI/CD pipeline.
 
+DOMAIN: K8’s
+60.) Can we control Namespace Utilization Per Name space in K8’s?
+- It’s a virtual cluster or a logical partition or a means of isolating you IT workloads. 
+- Yes you can control resource utilization through K8’s resource quota yaml file.
+
+apiVersion: v1
+Kind: ResourceQuota
+metdata:
+   name: my_name_space
+spec:
+  hard:
+     requests.cpu:”1”
+     request.memory: 1 Gi
+     limits.cpu: “2”
+     limits:memory: 2Gi
+
+# kubectl get resourcequota men-cpu-demo - - 
+   namepspace=my_name_space - -output=yaml
+
+
+DOMAIN: Github
+61.) We have a commit that was pushed to the main branch, we don’t want it now, we have to quickly remove this commit to avoid it getting 
+       deployed in Production. 
+       How would you do this???
+
+- We need the “Commit ID#”
+# git log - -online    (Commit ID#)
+# git revert <CommitID#>
+# git push origin
+
+* git reset: This command moves the HEAD and branch pointers to a specified commit, effectively "rewinding" the branch history. It's often used to undo local commits.
+
+* git revert: This command creates a new commit that undoes the changes made by a previous commit. It is a safe way to undo changes, especially when working in a shared repository.
+
+* HEAD: HEAD is a symbolic reference in Git that points to the most recent commit in the current branch. It represents the snapshot of your last commit.
+
+* Cherry Picking: The process of selecting a specific commit from one branch and applying it to another branch. It allows you to choose and merge individual commits rather than merging entire branches.
+
+
+Note: 
+What is “git reset”?
+What is “Cherry Pick”?
+Or you can create a New PR and change it. 
+
+
+
 
 
 
