@@ -732,6 +732,37 @@ Write a Python script w/…
 * Logging can help you debug and fix issue pertaining to your application. 
 * Centralize logging you can dump to: Splunk, S3,  CloudWatch, Elastic Search, DataDog(Log Aggregator)
 
+54.) What is a side car container?
+* Supports the main application container’s operations through monitoring and logging.
+* It’s a small, supplementary container that runs alongside the main application container. 
+NOTE:
+Multiple container running in a POD can be destroyed at any time  so their logging is directed
+To the SIDE CAR CONTAINER. 
+
+55.) Terraform apply is failing. The process is in a hung state. Now if you cancel this it might result in corrupt terraform state.
+How would you debug this issue? 
+
+* I’d save the remote statefile first
+- Connect to a new Terminal 
+- terraform state pull     ///    This pulls remote statefile to your local desktop filesystem like a backup an avoiding corruption. 
+- Kill the process “terraform apply” and run it again. 
+- If it doesn’t work then I’ll just replace the current statefile w/ my backup. 
+
+DOMAIN: Github
+56.) What is branch protection in GitHub?
+
+Discussion:
+This is the proper way to merge code…
+Working branch —> You make changes —> Open a PR —> Get a review —> Merged Code to Master/Main Branch
+- If there are no protections in place then a dev can just BYPASS (PR & Review) and merge the code. This is incorrect!
+
+* You must enable “Branch Protection Rules”
+- Goto Master Repo, Click Settings, Click Branches, Click Add branch protection rules, Check “Require Pull Request B4 Merging” (Requiring x-number of approvals.)
+
+
+
+
+
 
 
 
