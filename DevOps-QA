@@ -941,9 +941,10 @@ spec:
 
 
 DOMAIN: Github
-61.) We have a commit that was pushed to the main branch, we don’t want it now, we have to quickly remove this commit to avoid it getting 
-       deployed in Production. 
-       How would you do this???
+61.) We have a commit that was pushed to the main branch, we don’t want it now, we have to quickly remove this 
+commit to avoid it getting deployed in Production. 
+       
+How would you do this???
 
 - We need the “Commit ID#”
 # git log - -online    (Commit ID#)
