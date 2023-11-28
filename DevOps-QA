@@ -275,7 +275,61 @@ multiple IAM users, groups, or roles as needed. Will persist after IAM, U or G i
 - Inline Policy:  Inline policies can be created and are specific to an IAM user, group, or role. They cannot be reused or shared 
 with other users, groups, or roles. When U,G or R is deleted so is the inline policy. 
 
+26.) Which build tools are you aware of and what are the build tools used in the project?
+Note:
+> Build tools are critical for packing the application code and shipping it. 
+> Can ship raw code files to servers/clients
 
+Answer:
+I have worked on multiple projects where the developers team used Java / NodeJS build tools
+
+Java					NodeJS			Python
+Maven, Gradle 			npm				PIP & Pybuilder 
+
+NOTE: PLUGINS NEEDED FOR JENKINS
+* Pipeline Plugin: 
+* Github Plugin
+* Git Plugin: 
+* Maven Plugin: 
+* Gradle Plugin:
+* NodeJs Plugn
+* Docker Puglin
+* Surefire
+
+1.) 
+stage(‘Build’)
+	sh 'mvn clean package'
+- Maven compiles source code and any test source code. 
+‘Sh ‘mvn clean package’
+- clean: This removes any previously generated build artifacts.
+- package: This rebuilds the project and packages it into its final distribution format.
+
+2.) 
+state(‘Test’)
+JUNIT is a framework designed for writing and running test on small units of the code (Classes & Methods). 
+Maven knows where to find the Junit test classes and main source code “src/test/java, src/main/java”
+	sh ‘mvn test’
+- Execute Unit Test - Test are written using the framework ‘JUnit’.
+- Maven run all the TEST CLASSES
+- Reports results to console
+If EXIT CODE = 0   /// Application is deployed into 
+
+Use this as part of STC Duties / Use AI to clear this up. Provide detailed scenarios…
+Integration Tests: Integration tests come next in the testing hierarchy. These tests focus on ensuring that different parts 
+of the application work correctly when integrated or connected. Integration tests verify interactions between components, modules, 
+services, or even external systems. They test scenarios where data or control flow moves across various parts of the application.
+* Example: In a web application, an integration test might involve testing how the frontend interacts with the backend API and how 
+data is passed between them. This could include testing API endpoints, database connections, and the overall behavior of the application 
+when these components are combined.
+
+
+In order to run tests during the build process, it must use plugins like Surefire or Failsafe.
+
+
+27.) What is ingress and egress?  Where are these terms mostly associated?
+* Ingress: Incoming traffic
+* Egress: Outgoing traffic
+You see this term mostly associated w/ SECURITY GROUPS.
 
 
 
