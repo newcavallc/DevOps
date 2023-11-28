@@ -639,6 +639,48 @@ spec:
     value: <taint-value>
     effect: NoSchedule
 
+45.) Let’s say you have 2 servers with different ports and username then how can ansible handle different machines for applying and running the same runbook?
 
+* Create a separate inventory group for each server w/ specific connection details. Then specify the target those target groups when running the playbook.
+
+Example:
+
+Suppose you have two servers:
+
+Server 1:
+
+IP Address: 192.168.1.100
+SSH Port: 2222
+Username: user1
+
+Server 2:
+
+IP Address: 192.168.1.101
+SSH Port: 22
+Username: user2
+
+
+Create an Ansible inventory file (e.g., inventory.ini) with the following content:
+————————————————————————
+[web_servers]
+192.168.1.100:2222 ansible_ssh_user=user1
+192.168.1.101 ansible_ssh_user=user2
+———————————————————————
+
+Now, you can run your Ansible playbook against these servers. For example, if your playbook is named my_playbook.yml, you can run it like this:
+
+# ansible-playbook -i inventory.ini web_servers my_playbook.yml
+
+
+
+46.) What is the difference between a Web Server and Application Server?
+
+* Web servers serve web content, while application server on the backend runs web app logic.
+
+47.) How can we handle secrets in ansible? Let’s say we have a playbook which needs to login to premises server with login name and password
+
+* # echo “data to be  encrypted’> encrypt_file.txt
+* # ansible-vault encrypt encrypt_file.txt
+* Or integrate it with Hashi Corp Vault
 
 
