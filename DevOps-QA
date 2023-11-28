@@ -469,5 +469,48 @@ Network Load Balancer (NLB) operates at Layer 4 (transport layer) and is designe
 applications like TCP/UDP load balancing.
 
 
+33.) What is Sonarqube, have you used it?
+It’s an automatic code review tool - detects bugs and vulnerabilities in the code. No I haven’t used it. 
 
+Dev —> Checks the code into Github
+	       Excuses a PR
+	       Sonarq Checks the code for vulnerabilities and bugs
+               Sends a report back - Pass or Fail
+	       Peer review team steps in and reviews the code.
+		+1 
+	       Sonarq merges the code
+		Jenkins job build the app
+
+.34) How do you handle incidents in your team?
+We monitor the environment with  Prometheus, Grafana. 
+
+Application expose the —> Metrics —> Prometheus pulls Metrics —> Alert rules —> Triggers ONCALL (Email Slack & Phone)
+* The App exposes the metrics
+* We have Prometheus configured to pull the metric in.
+* Based metric values, Alert rules will trigger an alert to the On-Call Engineer. /// (Phone Call / Slack)
+* Engineer will come online, try to solve it or escalate to a higher level of support.
+
+- Once Incident fix
+- RCA Root Cause Analysis is performed
+- Mitigation report is created with Solution
+
+
+35.) Explain CMD and ENTRYPOINT. Are they the same or different. 
+* They both specify what command should be executed on container startup. 
+* They both can run the same commands, use the same shells, when used both together - you can pass values btw ea other.
+* CMD is more of a default and you can change the behavior outside the container. You can’t do that  w/ ENTRYPOINT.
+* Entry point is more of a cemented main process. Once you set it that’s it. 
+
+36.) Multiple EDC2 instances in ASG is getting terminated and this is causing downtime on the application. EC2 pricing, quota all look good. How would you start debugging this issue. 
+
+CHECK THE FOLLOWING:
+* CPU
+	# top 		/// Find the Offending process 
+* DISK
+	# df -h 
+	# du -sh /var/log /tmp	/// Clear out some log space.
+* MEMORY
+	# free -mt		/// If SWAP = 0 That’s a problem too. App is trying to utilize all the mem. 
+
+ASG —> EC2 —> Application —> unhealthy (ASG Terminates EC2) 
 
