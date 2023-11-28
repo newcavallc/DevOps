@@ -331,7 +331,52 @@ In order to run tests during the build process, it must use plugins like Surefir
 * Egress: Outgoing traffic
 You see this term mostly associated w/ SECURITY GROUPS.
 
+28.) What’s the difference between docker image vs docker layers?
+SIDE NOTE: They’re completely different from one another. 
+* A Docker Image is the complete package that defines the container
+* The layers are the individual, reusable components that make up the image and store the changes.
 
+NOTE:
+If you do:
+# docker history <image_name>    /// Show all the LAYERS that have been used.  
+
+Example:
+FROM rails:onbuild 						—> Use “onbuild” image as a starting point for the build. 
+ENV RAILS_ENV dev						—> Setting the “RAILS_ENV” to “DEV”
+ENTRYPOINT [“bundle”, “exec”, “logica”]		—> Tells Docker what command to run when Container is Started.
+
+Each line in “Example” is considered a layer —> Creates an DOCKER IMAGE!
+
+
+29.) What is a bastion host or gateway server? What role do they play?
+NOTE: There are many names… Bastion Host, Gateway Server, Jump Box.
+* A middle man between a public network and private. Once logged on - I can jump to in server in the private network. 
+* From external network - manages access to a Private Network from External network. 
+A.) How would stop the flow of traffic into the private network?
+* Shut down the Bastion Host.
+
+30.) Auto Scaling group for a project is having issues w/ getting/provisioning new nodes. It’s using complete spot instances. 
+        What could be the issue?
+
+* Spot Instances are spare compute capacity offered at a low cost by Amazon. On-Demand Instances.
+1.) SPOT PRICE INCREASE /// Then Spot Instances can be taken away from you.
+2.) EC2 quota limit. /// Could be a SOFT LIMIT set on the AWS Account. 
+
+
+DOMAIN: Kubernetes
+30.) A pod is trying to access a volume but it gives an access error. We want the pod to have access so what must we do?
+Dose PV support the access mode we need. 
+* Check the PV / PVC manifest are configured correctly - same “access mode” 
+* Check pod configuration —> kubectl describe pod <pod_name>
+	* Check for correct PVC Name, Filesystem Permissions, MountPath
+
+31.) How is your K8’s setup done on AWS 
+* Were using EKS for Production and Development Services (Why EKS? Flexibility, less maintenance.)
+* The cluster builds are provisioned through Terraform.
+
+32.) What are the load balancers in AWS? Briefly explain which ones you have used and their use cases?
+* Classic Load Balancers
+* Application Load balancer
 
 
 
