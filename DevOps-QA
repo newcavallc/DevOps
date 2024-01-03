@@ -1099,6 +1099,61 @@ System Executes Programs pertaining to RUNLEVEL
 WEB API /
 
 
+STUDY:
+
+HTTP METHODS:
+https://www.youtube.com/watch?v=PO7D20HsFsY	(PRETTY GOOD)
+
+
+Apache on Ubuntu
+----------------
+
+How to Install SSL Certificate on Linux Apache Web Server
+https://www.youtube.com/watch?v=m06TttS2ZAM
+
+yum update
+iptables -F
+yum install httpd
+service start httpd
+service enable httpd
+
+
+Global Apache configuration file in CentOS 7 is /etc/httpd/conf/httpd.conf
+
+DocumentRoot which is the directory out of which the data will be served to 
+the visitor. Usually, in most distros the default document root for Apache is 
+set to /var/www/html/ so if you put data in /var/www/html/ you will be able 
+to access that same data via a web browser using your server IP address.
+
+Create Virtualhost:
+
+1.) 
+vi /etc/httpd/conf.d/your_domain.conf
+
+
+------------------------------------------------------
+RUN QUICK TEST ON MULTIPLE VHOST WITHOUT ADDING 
+DNS records(Mapping Domain to IP)
+
+$ curl -H "Host: mysite.com" http://10.20.30.40
+
+This is especially useful for quick troubleshooting.
+And you don't have to remove anything after you are done.
+---------------------------------------------------------
+
+
+
+Troubleshooting:
+resource: https://support.rackspace.com/how-to/serve-multiple-domains-by-using-virtual-hosts/
+
+- Restart Apache after you have made changes 
+  and doing diagnosis ...
+
+$ httpd -k restart            
+$ apache2 -k restart
+
+$ httpd -S                    / Print out Vhost config info
+$ apache2 -S
 
 
 
