@@ -1028,7 +1028,75 @@ Checking the logs.
 
 
 
+STUDY:
 
+HTTP METHODS:
+https://www.youtube.com/watch?v=PO7D20HsFsY	(PRETTY GOOD)
+
+APACHE on UBUNTU:
+How to Install SSL Certificate on Linux Apache Web Server
+https://www.youtube.com/watch?v=m06TttS2ZAM
+
+* Global Apache configuration file  ...  "/etc/httpd/conf/httpd.conf"
+* DocumentRoot ...  "/var/www/html/ "
+   - Directory where data will be served to visitors.
+   - You will be able to access that data via a web browser using your 
+      server IP address.
+
+Creating virtual hosts for multiple domains:
+https://support.rackspace.com/how-to/serve-multiple-domains-by-using-virtual-hosts/
+RUN QUICK TEST ON MULTIPLE VHOST WITHOUT ADDING 
+DNS records(Mapping Domain to IP)
+
+$ curl -H "Host: mysite.com" http://10.20.30.40
+    - This is especially useful for quick troubleshooting and you don't have 
+       to remove   anything after you are done.
+---------------------------------------------------------
+
+
+- Restart Apache after you have made changes 
+  and doing diagnosis ...
+
+$ httpd -k restart            
+$ apache2 -k restart
+
+$ httpd -S                    / Print out Vhost config info
+
+
+
+LINUX BOOT PROCESS:
+BIOS  
+a.) Searches for Boot Disk
+b.) Executes MBR
+ 	- located First Sector of Boot Disk
+	- Commponents 
+            	* Boot Loader Info
+		* Partition Table
+		* Validation Check
+MBR 
+a.) Executes Grub  --> /boot/grub/grub.conf
+b.) Splahs Screen
+c.) Choose between multiple kernels to load
+
+GRUB (Grand Unified Bootloader)
+a.) Executes Kernel
+b.) Loads intitrd
+        - Temp filesystem loaded into memory
+       - Performs Hardware Detection
+       - Loads Kernel modules and actual root filesystem mounted.
+(initrd, kernel stored in /boot
+KERNEL
+a.) Executes /sbin/init  or systemd
+
+INIT/SYSTEMD
+/etc/inittabl -- DECIDES LINUX RUNLEVEL
+RUNLEVEL DECIDES WHICH PROGRAMS WILL RUN
+
+RUNLEVEL
+System Executes Programs pertaining to RUNLEVEL
+
+
+WEB API /
 
 
 
