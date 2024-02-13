@@ -1156,5 +1156,38 @@ $ httpd -S                    / Print out Vhost config info
 $ apache2 -S
 
 
+JSON:
 
+Q: What does JSON stand for?
+
+A: JavaScript Object Notation.
+Q: Describe the basic structure of JSON.
+
+A: It consists of key-value pairs, where keys are strings and values can be strings, numbers, objects, arrays, booleans, or null.
+Q: How do you represent an array in JSON?
+
+A: By enclosing values in square brackets, like [value1, value2, ...].
+Q: Can JSON represent complex data structures?
+
+A: Yes, through nested objects and arrays.
+Q: What is the file extension commonly used for JSON files?
+
+A: .json.
+YAML:
+
+Q: What does YAML stand for?
+
+A: YAML Ain't Markup Language (or sometimes, YAML Ain't a Markup Language).
+Q: Describe the basic structure of YAML.
+
+A: It uses indentation to represent the hierarchy and relies on key-value pairs. Lists are represented using a dash followed by a space.
+Q: How does YAML handle comments?
+
+A: Comments start with a hash (#) symbol.
+Q: What is the file extension commonly used for YAML files?
+
+A: .yaml or .yml.
+Q: Can YAML represent associative arrays?
+
+A: Yes, YAML uses mappings to represent associative arrays or dictionaries.
 
