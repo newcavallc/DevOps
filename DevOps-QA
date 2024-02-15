@@ -5,8 +5,8 @@ DevOps is a culture that enhances automation, quality and speed in software deli
 the collaboration of Development and Operations. 
 
 K8s:
-aws-iam-authenticator: is a tool that authenticates users and services using AWS IAM credentials, also provides 
-integration beteween IAM and K8s RBAC
+aws-iam-authenticator: is a tool that authenticates users and services using their AWS IAM credentials, then
+K8s maps these IAM roles to RBAC roles (Establishes connection between IAM ROLES to k8s RBAC) for access control.
 
 
 1.) EC2 Instance Running Out of Disk Space:
