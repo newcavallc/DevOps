@@ -19,6 +19,16 @@ K8s:
 aws-iam-authenticator: is a tool that authenticates users and services using their AWS IAM credentials, then
 K8s maps these IAM roles to RBAC roles (Establishes connection between IAM ROLES to k8s RBAC) for access control.
 
+What is a POD?
+- Smallest Deployable Unit in K8s, single instance of a running process.
+- Encapsulates the container
+
+How do POD's communicate?
+- PODs utilzie the VPC CNI(Network Plugin)
+- Enables them to communicate with other PODs and AWS services. 
+
+
+
 
 1.) EC2 Instance Running Out of Disk Space:
 -------------------------------------------
