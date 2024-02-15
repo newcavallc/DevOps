@@ -4,6 +4,17 @@ WHAT IS DEVOPS?
 DevOps is a culture that enhances automation, quality and speed in software delivery through 
 the collaboration of Development and Operations. 
 
+CIDR BLOCK RULES
+Combines the IP address & subnet mask info into concise format.
+
+Remember: 32 bit = entire IP...
+
+For example, 192.168.1.1/24:
+"/24" indicates first 24 bits represent the network, leaving 8 bits for host within that network.
+32-24=8
+Finding closes power of 2
+2^8 = 256-2 (0 for ntwrk, 255 for Broadcast) = 254 ip's for subnet.
+
 K8s:
 aws-iam-authenticator: is a tool that authenticates users and services using their AWS IAM credentials, then
 K8s maps these IAM roles to RBAC roles (Establishes connection between IAM ROLES to k8s RBAC) for access control.
