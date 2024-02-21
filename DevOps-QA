@@ -1455,3 +1455,12 @@ rules to the appropriate target group, and the target group forwards the request
 It's important to note that the actual steps and user interface details might vary 
 slightly based on updates to the AWS Management Console. Always refer to the AWS 
 documentation for the most accurate and up-to-date information.
+
+
+DOMAIN: EKS AWS
+- When Ingress is created it subsequently creates a ALB.
+- The job of the Ingress is to manage external access to Services.
+- It does this by defining host and path routing rules and feeding the rule set to ALB
+- ALB will route traffic efficiently to said Service
+- Service Manifest: It listes on Port: 80 and forward that traffic through Target Port 8080
+  this is the port that POD is listening on. 
